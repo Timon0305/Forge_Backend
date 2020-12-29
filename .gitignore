@@ -1,0 +1,6 @@
+# Dependencies
+node_modules
+.idea/
+.DS_Store
+
+# scripts/after_install.sh
