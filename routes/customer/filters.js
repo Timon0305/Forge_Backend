@@ -5,6 +5,9 @@ const {
     getCPUFilter
 } = require('../../Controllers/customer/category/cpu');
 const {
+    getCPUGraphics
+} = require('../../Controllers/customer/category/cpu');
+const {
     getMemoryFilter
 } = require('../../Controllers/customer/category/memory');
 const {
@@ -20,6 +23,12 @@ const {
     getCPUCoolerFilter
 } = require('../../Controllers/customer/category/cooling');
 const {
+    getWaterCooled
+} = require('../../Controllers/customer/category/cooling');
+const {
+    getFanless
+} = require('../../Controllers/customer/category/cooling');
+const {
     getStorageFilter
 } = require('../../Controllers/customer/category/storage');
 const {
@@ -29,6 +38,9 @@ const {
 router
     .route('/cpu')
     .get(getCPUFilter);
+router
+    .route('/cpuGraphics')
+    .get(getCPUGraphics);
 router
     .route('/memory')
     .get(getMemoryFilter);
@@ -44,6 +56,12 @@ router
 router
     .route('/cpu-cooler')
     .get(getCPUCoolerFilter);
+router
+    .route('/water-cooled')
+    .get(getWaterCooled);
+router
+    .route('/fanless')
+    .get(getFanless);
 router
     .route('/storage')
     .get(getStorageFilter);

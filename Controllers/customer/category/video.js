@@ -1,5 +1,5 @@
-const VideoSchema = require('../../../Models/Category/Video');
-const VideoCardFilter = require('../../../Models/Filter/VideoFilter');
+const VideoSchema = require('../../../Models/Video-Card/Video');
+const VideoCardFilter = require('../../../Models/Video-Card/VideoFilter');
 
 exports.getAllVideo = async (req, res) => {
     try {

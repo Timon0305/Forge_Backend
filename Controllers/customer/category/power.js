@@ -1,5 +1,5 @@
-const PowerSchema = require('../../../Models/Category/Power');
-const PowerSupplyFilter = require('../../../Models/Filter/PowerFilter');
+const PowerSchema = require('../../../Models/Power-Supply/Power');
+const PowerSupplyFilter = require('../../../Models/Power-Supply/PowerFilter');
 exports.getAllPowerSupply = async (req, res) => {
     try {
         PowerSchema.find()

@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer');
-const CpuSchema = require('../../../Models/Category/Cpu');
-const MemorySchema = require('../../../Models/Category/Memory');
-const MotherBoardSchema = require('../../../Models/Category/Motherboard');
-const VideoShema = require('../../../Models/Category/Video');
-const PowerSchema = require('../../../Models/Category/Power');
-const CoolingSchema = require('../../../Models/Category/Cooling');
-const CaseSchema = require('../../../Models/Category/Cases');
-const StorageSchema = require('../../../Models/Category/Storage');
-const SoftwareSchema = require('../../../Models/Category/Software');
+const CpuSchema = require('../../../Models/CPU/Cpu');
+const MemorySchema = require('../../../Models/Memory/Memory');
+const MotherBoardSchema = require('../../../Models/Motherboard/Motherboard');
+const VideoShema = require('../../../Models/Video-Card/Video');
+const PowerSchema = require('../../../Models/Power-Supply/Power');
+const CoolingSchema = require('../../../Models/Cpu-Cooler/Cooling');
+const CaseSchema = require('../../../Models/Case/Cases');
+const StorageSchema = require('../../../Models/Storage/Storage');
+const SoftwareSchema = require('../../../Models/Software/Software');
 const cpuURL = "https://pcpartpicker.com/products/cpu/#page=";
 const memoryURL = "https://pcpartpicker.com/products/memory/#page=";
 const motherboardURL = "https://pcpartpicker.com/products/motherboard/#page=";
@@ -563,3 +563,47 @@ exports.softwareSync = async (req, res) => {
     }
 
 };
+
+
+exports.others = async (req, res) => {
+    const url = 'https://pcpartpicker.com/products/cpu-cooler/';
+    const CpuSeries = require('../../../Models/Cpu-Cooler/FanLess');
+    let data = [];
+    const browser = await puppeteer.launch({header: false});
+    const page = await browser.newPage();
+
+    for (let i = 1; i < 2; i++) {
+        await page.goto(url, {waitUntil: 'networkidle0'});
+        await delay(4000);
+        await page.waitForFunction(
+            () => document.querySelectorAll('#F_set li label').length > 0, {})
+            .then(async () => {
+                data = await page.evaluate((data) => {
+                    let item = document.querySelectorAll('#F_set li');
+
+                    for (let j = 1; j <= item.length; j++) {
+                        let name = document.querySelector('#F_set li:nth-child(' +j +') label').innerText;
+                        let status = 'false';
+                        data.push(
+                            {
+                                name,
+                                status
+                            })
+                    }
+                    return data;
+                }, data);
+            })
+    }
+    for (let item of data) {
+        const schema = new CpuSeries(item);
+        schema.save();
+    }
+    console.log('finished-', data.length);
+    await browser.process().kill('SIGINT')
+};
+
+function delay(time) {
+    return new Promise(function(resolve) {
+        setTimeout(resolve, time)
+    });
+}

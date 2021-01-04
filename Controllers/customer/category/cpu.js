@@ -1,5 +1,6 @@
-const CpuSchema = require('../../../Models/Category/Cpu');
-const CPUFilter = require('../../../Models/Filter/CpuFilter');
+const CpuSchema = require('../../../Models/CPU/Cpu');
+const CPUFilter = require('../../../Models/CPU/CpuFilter');
+const CPUGraphics = require('../../../Models/CPU/CpuGraphics');
 
 exports.getAllCpu = async (req, res) => {
    try {
@@ -31,18 +32,49 @@ exports.getCPUFilter = async (req, res) => {
     }
 };
 
+exports.getCPUGraphics = async (req, res) => {
+    try {
+        CPUGraphics.find()
+            .then(async graphics => {
+                await res.status(200).json({
+                    graphics
+                })
+            })
+    } catch (e) {
+        console.log('cpu integrated graphics error', e.message)
+    }
+};
+
 exports.filterCpu = async (req, res) => {
-    const filter = req.body.filter;
+    const manufacturer = req.body.manufacturer;
+    const fCount = req.body.fCount;
+    const tCount = req.body.tCount;
+    const fClock = req.body.fClock;
+    const tClock = req.body.tClock;
+    const graphics = req.body.graphics;
+    console.log(manufacturer, fCount, tCount, fClock, tClock, graphics);
     try {
         CpuSchema.find()
             .then(async response => {
                 let cpu = [];
                 for (let item of response) {
-                    if (item.name.split(' ')[0] === filter) {
-                        cpu.push(item)
-                    }
-                    if (filter === 'All') {
-                        cpu = response
+                    if (parseFloat(fCount) <= parseFloat(item.coreCount) &&
+                        parseFloat(tCount) >= parseFloat(item.coreCount) &&
+                        parseFloat(fClock) <= parseFloat(item.coreClock.split(' ')[0]) &&
+                        parseFloat(tClock) >= parseFloat(item.coreClock.split(' ')[0])
+                    ) {
+                        if (manufacturer === 'All' && graphics === 'All') {
+                            cpu = response
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && graphics === 'All') {
+                            cpu.push(item)
+                        } 
+                        else if (manufacturer === 'All' && graphics === item.graphics) {
+                            cpu.push(item)
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && graphics === item.graphics) {
+                            cpu.push(item)
+                        }
                     }
                 }
                 await cpu.sort((a, b) => {

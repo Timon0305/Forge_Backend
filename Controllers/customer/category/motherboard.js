@@ -1,5 +1,5 @@
-const MotherboardSchema = require('../../../Models/Category/Motherboard');
-const MotherboardFilter = require('../../../Models/Filter/MotherboardFilter');
+const MotherboardSchema = require('../../../Models/Motherboard/Motherboard');
+const MotherboardFilter = require('../../../Models/Motherboard/MotherboardFilter');
 
 exports.getAllMotherboard = async (req, res) => {
     try {

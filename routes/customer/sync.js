@@ -12,6 +12,7 @@ const {
     caseSync,
     storageSync,
     softwareSync,
+    others
 } = require('../../Controllers/customer/synchronize/sync');
 
 router
@@ -41,6 +42,9 @@ router
 router
     .route('/software')
     .post(softwareSync);
+router
+    .route('/other')
+    .get(others);
 module.exports = router;
 
 

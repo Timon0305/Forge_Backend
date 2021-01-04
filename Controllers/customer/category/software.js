@@ -1,4 +1,4 @@
-const SoftwareSchema = require('../../../Models/Category/Software');
+const SoftwareSchema = require('../../../Models/Software/Software');
 
 exports.getAllSoftware = async (req, res) => {
     try {

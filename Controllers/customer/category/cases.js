@@ -1,5 +1,5 @@
-const CasesSchema = require('../../../Models/Category/Cases');
-const CaseFilterSchema = require('../../../Models/Filter/CaseFilter');
+const CasesSchema = require('../../../Models/Case/Cases');
+const CaseFilterSchema = require('../../../Models/Case/CaseFilter');
 
 exports.getAllCases = async (req, res) => {
     try {

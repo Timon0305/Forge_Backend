@@ -1,5 +1,5 @@
-const StorageSchema = require('../../../Models/Category/Storage');
-const StorageFilter = require('../../../Models/Filter/StorageFilter');
+const StorageSchema = require('../../../Models/Storage/Storage');
+const StorageFilter = require('../../../Models/Storage/StorageFilter');
 
 exports.getAllStorage = async (req, res) => {
     try {

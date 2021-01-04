@@ -1,5 +1,5 @@
-const MemorySchema = require('../../../Models/Category/Memory');
-const MemoryFilter = require('../../../Models/Filter/MemoryFilter');
+const MemorySchema = require('../../../Models/Memory/Memory');
+const MemoryFilter = require('../../../Models/Memory/MemoryFilter');
 
 exports.getAllMemory = async (req, res) => {
     try {
