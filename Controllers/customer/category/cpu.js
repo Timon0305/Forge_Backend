@@ -52,7 +52,6 @@ exports.filterCpu = async (req, res) => {
     const fClock = req.body.fClock;
     const tClock = req.body.tClock;
     const graphics = req.body.graphics;
-    console.log(manufacturer, fCount, tCount, fClock, tClock, graphics);
     try {
         CpuSchema.find()
             .then(async response => {
@@ -68,7 +67,7 @@ exports.filterCpu = async (req, res) => {
                         }
                         else if (manufacturer === item.name.split(' ')[0] && graphics === 'All') {
                             cpu.push(item)
-                        } 
+                        }
                         else if (manufacturer === 'All' && graphics === item.graphics) {
                             cpu.push(item)
                         }

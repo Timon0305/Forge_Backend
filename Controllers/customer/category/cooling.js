@@ -44,9 +44,9 @@ exports.getWaterCooled = async (req, res) => {
 exports.getFanless = async (req, res) => {
     try {
         Fanless.find()
-            .then(async fanless => {
+            .then(async fanLess => {
                 await res.status(200).json({
-                    fanless
+                    fanLess
                 })
             })
     }  catch (e) {
@@ -55,17 +55,55 @@ exports.getFanless = async (req, res) => {
 };
 
 exports.filterCPUCooler = async (req, res) => {
-    const filter = req.body.filter;
+    const manufacturer = req.body.manufacturer;
+    const cooled = req.body.cooled === 'All' ? 'All' : (req.body.cooled === 'No' ? undefined : req.body.cooled.split(' - ')[1]);
+    const fanLess = req.body.fanLess;
     try {
         CoolingSchema.find()
             .then(async response => {
                 let cooler = [];
                 for (let item of response) {
-                    if (item.name.split(' ')[0] === filter) {
-                        cooler.push(item)
+                    if (fanLess === 'All') {
+                        if (manufacturer === 'All' && cooled === 'All') {
+                            cooler = response
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && cooled === 'All') {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && cooled === item.radiator) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === 'All' && cooled === item.radiator) {
+                            cooler.push(item)
+                        }
                     }
-                    if (filter === 'All') {
-                        cooler = response
+                    else if (fanLess === 'Yes') {
+                        if (manufacturer === 'All' && cooled === 'All' && item.rpm === undefined) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && cooled === 'All' && item.rpm === undefined) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && cooled === item.radiator && item.rpm === undefined) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === 'All' && cooled === item.radiator && item.rpm === undefined) {
+                            cooler.push(item)
+                        }
+                    }
+                    else if (fanLess === 'No') {
+                        if (manufacturer === 'All' && cooled === 'All' && item.rpm !== undefined) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && cooled === 'All' && item.rpm !== undefined) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === item.name.split(' ')[0] && cooled === item.radiator && item.rpm !== undefined) {
+                            cooler.push(item)
+                        }
+                        else if (manufacturer === 'All' && cooled === item.radiator && item.rpm !== undefined) {
+                            cooler.push(item)
+                        }
                     }
                 }
                 await cooler.sort((a, b) => {
