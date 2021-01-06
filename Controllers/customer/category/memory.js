@@ -1,5 +1,7 @@
 const MemorySchema = require('../../../Models/Memory/Memory');
 const MemoryFilter = require('../../../Models/Memory/MemoryFilter');
+const MemoryModule = require('../../../Models/Memory/MemoryModule');
+const MemoryColor = require('../../../Models/Memory/MemoryColor');
 
 exports.getAllMemory = async (req, res) => {
     try {
@@ -14,12 +16,12 @@ exports.getAllMemory = async (req, res) => {
     }
 } ;
 
-exports.getMemoryFilter = async (req, res) => {
+exports.getMemoryManufacturer = async (req, res) => {
     try {
         MemoryFilter.find()
-            .then(async memoryFilter => {
+            .then(async manufacturer => {
                 await res.status(200).json({
-                    memoryFilter
+                    manufacturer
                 })
             })
     }  catch (e) {
@@ -27,18 +29,72 @@ exports.getMemoryFilter = async (req, res) => {
     }
 };
 
+exports.getMemoryModule = async (req, res) => {
+    try {
+        MemoryModule.find()
+            .then(async module => {
+                await res.status(200).json({
+                    module
+                })
+            })
+    }  catch (e) {
+        console.log('memory module error', e.message)
+    }
+};
+
+exports.getMemoryColor = async (req, res) => {
+    try {
+        MemoryColor.find()
+            .then(async color => {
+                await res.status(200).json({
+                    color
+                })
+            })
+    }  catch (e) {
+        console.log('memory color error', e.message)
+    }
+};
+
 exports.filterMemory = async (req, res) => {
-    const filter = req.body.filter;
+    const manufacturer = req.body.manufacturer;
+    const fPrice = req.body.fPrice;
+    const tPrice = req.body.tPrice;
+    const module = req.body.module;
+    const color = req.body.color;
+    const fSpeed = req.body.fSpeed;
+    const tSpeed = req.body.tSpeed;
+    
     try {
         MemorySchema.find()
             .then(async response => {
                 let memory = [];
                 for (let item of response) {
-                    if (item.name.split(' ')[0] === filter) {
-                        memory.push(item)
-                    }
-                    if (filter === 'All') {
-                        memory = response
+                    if (parseFloat(fPrice) <= parseFloat(item.price.split('$')[1]) &&
+                        parseFloat(tPrice) >= parseFloat(item.price.split('$')[1]) &&
+                        parseFloat(fSpeed) <= parseFloat(item.speed.split('-')[1]) &&
+                        parseFloat(tSpeed) >= parseFloat(item.speed.split('-')[1])
+                    ) {
+                        if (manufacturer === 'All') {
+                            if (module === 'All' && color === 'All') {
+                                memory = response;
+                            }
+                            else if (module === 'All' && color === item.color) {
+                                memory.push(item)
+                            }
+                            else if (module === item.module && color === 'All') {
+                                memory.push(item)
+                            }
+                        } else if (manufacturer === item.name.split(' ')[0]) {
+                            if (module === 'All' && color === 'All') {
+                                memory.push(item)
+                            }
+                            else if (module === 'All' && color === item.color) {
+                                memory.push(item)
+                            }
+                            else if (module === item.module && color === 'All') {
+                                memory.push(item)
+                            }
+                        }
                     }
                 }
                 await memory.sort((a, b) => {

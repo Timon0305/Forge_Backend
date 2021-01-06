@@ -2,16 +2,21 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    getCPUFilter
-} = require('../../Controllers/customer/category/cpu');
-const {
+    getCPUFilter,
     getCPUGraphics
 } = require('../../Controllers/customer/category/cpu');
+
 const {
-    getMemoryFilter
+    getMemoryManufacturer,
+    getMemoryModule,
+    getMemoryColor
 } = require('../../Controllers/customer/category/memory');
+
 const {
-    getMotherboardFilter
+    getMotherboardManufacturer,
+    getMotherboardSocket,
+    getMotherboardFactor,
+    getMotherboardColor,
 } = require('../../Controllers/customer/category/motherboard');
 const {
     getVideoCardFilter
@@ -41,12 +46,30 @@ router
 router
     .route('/cpuGraphics')
     .get(getCPUGraphics);
+
 router
     .route('/memory')
-    .get(getMemoryFilter);
+    .get(getMemoryManufacturer);
+router
+    .route('/memoryModule')
+    .get(getMemoryModule);
+router
+    .route('/memoryColor')
+    .get(getMemoryColor);
+
 router
     .route('/motherboard')
-    .get(getMotherboardFilter);
+    .get(getMotherboardManufacturer);
+router
+    .route('/motherboardSocket')
+    .get(getMotherboardSocket);
+router
+    .route('/motherboardFactor')
+    .get(getMotherboardFactor);
+router
+    .route('/motherboardColor')
+    .get(getMotherboardColor);
+
 router
     .route('/video-card')
     .get(getVideoCardFilter);

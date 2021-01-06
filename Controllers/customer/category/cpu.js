@@ -22,9 +22,9 @@ exports.getAllCpu = async (req, res) => {
 exports.getCPUFilter = async (req, res) => {
     try {
         CPUFilter.find()
-            .then(async cpuFilter => {
+            .then(async manufacturer => {
                 await res.status(200).json({
-                    cpuFilter
+                    manufacturer
                 })
             })
     }  catch (e) {
