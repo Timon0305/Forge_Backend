@@ -566,8 +566,8 @@ exports.softwareSync = async (req, res) => {
 
 
 exports.others = async (req, res) => {
-    const url = 'https://pcpartpicker.com/products/internal-hard-drive/';
-    const CpuSeries = require('../../../Models/Storage/StorageFactor');
+    const url = 'https://pcpartpicker.com/products/video-card/';
+    const CpuSeries = require('../../../Models/Video-Card/VideoColor');
     let data = [];
     const browser = await puppeteer.launch({header: false});
     const page = await browser.newPage();
@@ -576,13 +576,13 @@ exports.others = async (req, res) => {
         await page.goto(url, {waitUntil: 'networkidle0'});
         await delay(4000);
         await page.waitForFunction(
-            () => document.querySelectorAll('#f_set li label').length > 0, {})
+            () => document.querySelectorAll('#Y_set li label').length > 0, {})
             .then(async () => {
                 data = await page.evaluate((data) => {
-                    let item = document.querySelectorAll('#f_set li');
+                    let item = document.querySelectorAll('#Y_set li');
 
                     for (let j = 1; j <= item.length; j++) {
-                        let name = document.querySelector('#f_set li:nth-child(' +j +') label').innerText;
+                        let name = document.querySelector('#Y_set li:nth-child(' +j +') label').innerText;
                         let status = 'false';
                         data.push(
                             {

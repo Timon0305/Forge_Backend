@@ -18,9 +18,13 @@ const {
     getMotherboardFactor,
     getMotherboardColor,
 } = require('../../Controllers/customer/category/motherboard');
+
 const {
-    getVideoCardFilter
+    getVideoCardManufacturer,
+    getVideoCardChipSet,
+    getVideoCardColor
 } = require('../../Controllers/customer/category/video');
+
 const {
     getPowerSupplyFilter
 } = require('../../Controllers/customer/category/power');
@@ -75,8 +79,15 @@ router
     .get(getMotherboardColor);
 
 router
-    .route('/video-card')
-    .get(getVideoCardFilter);
+    .route('/videoCardManufacturer')
+    .get(getVideoCardManufacturer);
+router
+    .route('/videoCardChipSet')
+    .get(getVideoCardChipSet);
+router
+    .route('/videoCardColor')
+    .get(getVideoCardColor);
+
 router
     .route('/power-supply')
     .get(getPowerSupplyFilter);

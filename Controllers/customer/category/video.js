@@ -1,5 +1,7 @@
 const VideoSchema = require('../../../Models/Video-Card/Video');
 const VideoCardFilter = require('../../../Models/Video-Card/VideoFilter');
+const VideoCardChipSet = require('../../../Models/Video-Card/VideoChipSet');
+const VideoCardColor = require('../../../Models/Video-Card/VideoColor');
 
 exports.getAllVideo = async (req, res) => {
     try {
@@ -14,16 +16,42 @@ exports.getAllVideo = async (req, res) => {
     }
 } ;
 
-exports.getVideoCardFilter = async (req, res) => {
+exports.getVideoCardManufacturer = async (req, res) => {
     try {
         VideoCardFilter.find()
-            .then(async videoFilter => {
+            .then(async manufacturer => {
                 await res.status(200).json({
-                    videoFilter
+                    manufacturer
                 })
             })
     }  catch (e) {
-        console.log('Video Card filter error', e.message)
+        console.log('Video Card Manufacturer error', e.message)
+    }
+};
+
+exports.getVideoCardChipSet = async (req, res) => {
+    try {
+        VideoCardChipSet.find()
+            .then(async chipSet => {
+                await res.status(200).json({
+                    chipSet
+                })
+            })
+    }  catch (e) {
+        console.log('Video Card ChipSet error', e.message)
+    }
+};
+
+exports.getVideoCardColor = async (req, res) => {
+    try {
+        VideoCardColor.find()
+            .then(async color => {
+                await res.status(200).json({
+                    color
+                })
+            })
+    }  catch (e) {
+        console.log('Video Card Color error', e.message)
     }
 };
 
