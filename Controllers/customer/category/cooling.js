@@ -65,7 +65,7 @@ exports.filterCPUCooler = async (req, res) => {
                 for (let item of response) {
                     if (fanLess === 'All') {
                         if (manufacturer === 'All' && cooled === 'All') {
-                            cooler = response
+                            cooler.push(item)
                         }
                         else if (manufacturer === item.name.split(' ')[0] && cooled === 'All') {
                             cooler.push(item)

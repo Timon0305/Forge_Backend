@@ -63,7 +63,7 @@ exports.filterCpu = async (req, res) => {
                         parseFloat(tClock) >= parseFloat(item.coreClock.split(' ')[0])
                     ) {
                         if (manufacturer === 'All' && graphics === 'All') {
-                            cpu = response
+                            cpu.push(item)
                         }
                         else if (manufacturer === item.name.split(' ')[0] && graphics === 'All') {
                             cpu.push(item)

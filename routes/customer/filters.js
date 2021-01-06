@@ -33,9 +33,13 @@ const {
 const {
     getFanless
 } = require('../../Controllers/customer/category/cooling');
+
 const {
-    getStorageFilter
+    getStorageManufacturer,
+    getStorageType,
+    getStorageFactor
 } = require('../../Controllers/customer/category/storage');
+
 const {
     getCaseFilter
 } = require('../../Controllers/customer/category/cases');
@@ -76,6 +80,7 @@ router
 router
     .route('/power-supply')
     .get(getPowerSupplyFilter);
+
 router
     .route('/cpu-cooler')
     .get(getCPUCoolerFilter);
@@ -85,9 +90,17 @@ router
 router
     .route('/fanless')
     .get(getFanless);
+
 router
     .route('/storage')
-    .get(getStorageFilter);
+    .get(getStorageManufacturer);
+router
+    .route('/storageType')
+    .get(getStorageType);
+router
+    .route('/storageFactor')
+    .get(getStorageFactor);
+
 router
     .route('/case')
     .get(getCaseFilter);

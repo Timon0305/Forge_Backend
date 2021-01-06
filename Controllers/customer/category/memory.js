@@ -63,7 +63,6 @@ exports.filterMemory = async (req, res) => {
     const color = req.body.color;
     const fSpeed = req.body.fSpeed;
     const tSpeed = req.body.tSpeed;
-    
     try {
         MemorySchema.find()
             .then(async response => {
@@ -76,7 +75,7 @@ exports.filterMemory = async (req, res) => {
                     ) {
                         if (manufacturer === 'All') {
                             if (module === 'All' && color === 'All') {
-                                memory = response;
+                                memory.push(item)
                             }
                             else if (module === 'All' && color === item.color) {
                                 memory.push(item)
