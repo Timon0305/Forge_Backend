@@ -84,9 +84,12 @@ exports.filterStorage = async (req, res) => {
                                storage.push(item)
                            }
                            else if (type === 'All' && factor === item.factor) {
-                               storage.push(item)
+                              storage.push(item)
                            }
                            else if (type === item.type && factor === 'All') {
+                               storage.push(item)
+                           }
+                           else if (type === item.type && factor === item.factor) {
                                storage.push(item)
                            }
                        } else if (manufacturer === item.name.split(' ')[0]) {
@@ -97,6 +100,9 @@ exports.filterStorage = async (req, res) => {
                                storage.push(item)
                            }
                            else if (type === item.type && factor === 'All') {
+                               storage.push(item)
+                           }
+                           else if (type === item.type && factor === item.factor) {
                                storage.push(item)
                            }
                        }
