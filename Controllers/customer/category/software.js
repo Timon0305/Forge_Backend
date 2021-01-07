@@ -3,7 +3,10 @@ const SoftwareSchema = require('../../../Models/Software/Software');
 exports.getAllSoftware = async (req, res) => {
     try {
         SoftwareSchema.find()
-            .then(software => {
+            .then(async software => {
+                await software.sort((a, b) => {
+                    return parseFloat(a.price.split('$')['1']) -  parseFloat(b.price.split('$')['1'])
+                });
                 res.status(200).json({
                     software
                 })

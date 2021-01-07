@@ -55,7 +55,7 @@ router
     .get(getAllVideo)
     .post(filterVideoCard);
 router
-    .route('/power-supply')
+    .route('/powerSupply')
     .get(getAllPowerSupply)
     .post(filterPowerSupply);
 router

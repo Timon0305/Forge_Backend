@@ -27,7 +27,10 @@ const {
 } = require('../../Controllers/customer/category/video');
 
 const {
-    getPowerSupplyFilter
+    getPowerSupplyManufacturer,
+    getPowerSupplyEfficiency,
+    getPowerSupplyModular,
+    getPowerSupplyColor
 } = require('../../Controllers/customer/category/power');
 const {
     getCPUCoolerFilter
@@ -97,8 +100,17 @@ router
     .get(getVideoCardColor);
 
 router
-    .route('/power-supply')
-    .get(getPowerSupplyFilter);
+    .route('/powerSupplyManufacturer')
+    .get(getPowerSupplyManufacturer);
+router
+    .route('/powerSupplyEfficiency')
+    .get(getPowerSupplyEfficiency);
+router
+    .route('/powerSupplyModular')
+    .get(getPowerSupplyModular);
+router
+    .route('/powerSupplyColor')
+    .get(getPowerSupplyColor);
 
 router
     .route('/cpu-cooler')
