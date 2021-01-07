@@ -56,24 +56,55 @@ exports.getVideoCardColor = async (req, res) => {
 };
 
 exports.filterVideoCard = async (req, res) => {
-    const filter = req.body.filter;
+    const manufacturer = req.body.manufacturer;
+    const fPrice = req.body.fPrice;
+    const tPrice = req.body.tPrice;
+    const chipSet = req.body.chipSet;
+    const color = req.body.color;
+
     try {
         VideoSchema.find()
             .then(async response => {
-                let video = [];
+                let videoCard = [];
                 for (let item of response) {
-                    if (item.name.split(' ')[0] === filter) {
-                        video.push(item)
-                    }
-                    if (filter === 'All') {
-                        video = response
+                    if (parseFloat(fPrice) <= parseFloat(item.price.split('$')[1]) &&
+                        parseFloat(tPrice) >= parseFloat(item.price.split('$')[1])
+                    ) {
+                        if (manufacturer === 'All') {
+                            if (chipSet === 'All' && color === 'All') {
+                                videoCard.push(item)
+                            }
+                            else if (chipSet === 'All' && color === item.color) {
+                                videoCard.push(item)
+                            }
+                            else if (chipSet === item.chipSet && color === 'All') {
+                                videoCard.push(item)
+                            } 
+                            else if (chipSet === item.chipSet && color === item.color) {
+                                videoCard.push(item)
+                            }
+                        } 
+                        else if (manufacturer === item.name.split(' ')[0]) {
+                            if (chipSet === 'All' && color === 'All') {
+                                videoCard.push(item)
+                            }
+                            else if (chipSet === 'All' && color === item.color) {
+                                videoCard.push(item)
+                            }
+                            else if (chipSet === item.chipSet && color === 'All') {
+                                videoCard.push(item)
+                            }
+                            else if (chipSet === item.chipSet && color === item.color) {
+                                videoCard.push(item)
+                            }
+                        }
                     }
                 }
-                await video.sort((a, b) => {
+                await videoCard.sort((a, b) => {
                     return parseFloat(a.price.split('$')['1']) -  parseFloat(b.price.split('$')['1'])
                 });
                 await res.status(200).json({
-                    video
+                    videoCard
                 })
             })
     } catch (e) {
