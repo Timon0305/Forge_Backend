@@ -46,7 +46,11 @@ const {
 } = require('../../Controllers/customer/category/storage');
 
 const {
-    getCaseFilter
+    getCaseManufacturer,
+    getCaseType,
+    getCaseColor,
+    getCasePowerSupply,
+    getCaseWindow
 } = require('../../Controllers/customer/category/cases');
 
 router
@@ -117,7 +121,19 @@ router
     .get(getStorageFactor);
 
 router
-    .route('/case')
-    .get(getCaseFilter);
+    .route('/caseManufacturer')
+    .get(getCaseManufacturer);
+router
+    .route('/caseType')
+    .get(getCaseType);
+router
+    .route('/caseColor')
+    .get(getCaseColor);
+router
+    .route('/casePowerSupply')
+    .get(getCasePowerSupply);
+router
+    .route('/caseWindow')
+    .get(getCaseWindow);
 
 module.exports = router;
