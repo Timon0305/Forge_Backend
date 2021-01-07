@@ -115,7 +115,7 @@ exports.filterMotherboard = async (req, res) => {
                             else if (socket === item.socket && factor === item.factor && color === item.color) {
                                 motherboard.push(item)
                             }
-                        } else if (manufacturer === item.name.split(' ')[0]) {
+                        } else if (item.name.includes(manufacturer)) {
                             if (socket === 'All' && factor === 'All' && color === 'All') {
                                 motherboard.push(item)
                             }

@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {
     getCPUFilter,
-    getCPUGraphics
+    getCPUSeries,
+    getCPUGraphics,
 } = require('../../Controllers/customer/category/cpu');
 
 const {
@@ -51,6 +52,9 @@ const {
 router
     .route('/cpu')
     .get(getCPUFilter);
+router
+    .route('/cpuSeries')
+    .get(getCPUSeries);
 router
     .route('/cpuGraphics')
     .get(getCPUGraphics);

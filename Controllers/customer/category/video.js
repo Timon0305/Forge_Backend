@@ -84,7 +84,7 @@ exports.filterVideoCard = async (req, res) => {
                                 videoCard.push(item)
                             }
                         } 
-                        else if (manufacturer === item.name.split(' ')[0]) {
+                        else if (item.name.includes(manufacturer)) {
                             if (chipSet === 'All' && color === 'All') {
                                 videoCard.push(item)
                             }

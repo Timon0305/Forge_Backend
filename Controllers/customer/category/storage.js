@@ -92,7 +92,7 @@ exports.filterStorage = async (req, res) => {
                            else if (type === item.type && factor === item.factor) {
                                storage.push(item)
                            }
-                       } else if (manufacturer === item.name.split(' ')[0]) {
+                       } else if (item.name.includes(manufacturer)) {
                            if (type === 'All' && factor === 'All') {
                                storage.push(item)
                            }

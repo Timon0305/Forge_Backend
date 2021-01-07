@@ -83,7 +83,7 @@ exports.filterMemory = async (req, res) => {
                             else if (module === item.module && color === 'All') {
                                 memory.push(item)
                             }
-                        } else if (manufacturer === item.name.split(' ')[0]) {
+                        } else if (item.name.includes(manufacturer)) {
                             if (module === 'All' && color === 'All') {
                                 memory.push(item)
                             }
