@@ -20,7 +20,7 @@ exports.getAllCpu = async (req, res) => {
    }
 } ;
 
-exports.getCPUFilter = async (req, res) => {
+exports.getCPUManufacturer = async (req, res) => {
     try {
         CPUFilter.find()
             .then(async manufacturer => {

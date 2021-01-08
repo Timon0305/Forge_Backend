@@ -6,7 +6,16 @@ const MemoryColor = require('../../../Models/Memory/MemoryColor');
 exports.getAllMemory = async (req, res) => {
     try {
         MemorySchema.find()
-            .then(memory => {
+            .then(async response => {
+                let memory = [];
+                for (let item of response) {
+                    if (item.speed.includes('DDR4')) {
+                        memory.push(item)
+                    }
+                }
+                await memory.sort((a, b) => {
+                    return parseFloat(a.price.split('$')['1']) -  parseFloat(b.price.split('$')['1'])
+                });
                 res.status(200).json({
                     memory
                 })
@@ -71,7 +80,8 @@ exports.filterMemory = async (req, res) => {
                     if (parseFloat(fPrice) <= parseFloat(item.price.split('$')[1]) &&
                         parseFloat(tPrice) >= parseFloat(item.price.split('$')[1]) &&
                         parseFloat(fSpeed) <= parseFloat(item.speed.split('-')[1]) &&
-                        parseFloat(tSpeed) >= parseFloat(item.speed.split('-')[1])
+                        parseFloat(tSpeed) >= parseFloat(item.speed.split('-')[1] ) &&
+                        item.speed.includes('DDR4')
                     ) {
                         if (manufacturer === 'All') {
                             if (module === 'All' && color === 'All') {
