@@ -60,7 +60,7 @@ router
     .route('/cpu')
     .get(getCPUFilter);
 router
-    .route('/cpuSeries')
+    .route('/cpuNameSeries')
     .get(getCPUSeries);
 router
     .route('/cpuGraphics')
