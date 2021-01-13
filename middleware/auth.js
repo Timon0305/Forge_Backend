@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const jwt_decode = require('jwt-decode');
 const asyncHandler = require('./async');
 const ErrorResponse = require('../utils/errorResponse');
 const UserSchema = require('../Models/Users/User');
@@ -6,9 +7,6 @@ const { checkSession } = require('../utils/sessionLogger');
 
 exports.registered = asyncHandler(async (req, res, next) => {
     let token;
-    // return next();
-
-    console.log('my token=>', req.headers.usertoken)
 
     if (req.headers.usertoken) {
         token = req.headers.usertoken;
@@ -17,22 +15,16 @@ exports.registered = asyncHandler(async (req, res, next) => {
     }
 
     try {
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const decodedToken = jwt_decode(token);
 
-        const isValidated = await checkSession(req, token);
-
-        if (!isValidated === true) {
-            return next(new ErrorResponse('Invalid Session', 401));
-        }
-
-        req.user = await UserSchema.findById(decodedToken.id);
+        req.user = await UserSchema.findById(decodedToken.result.id);
 
         if (req.user.status === 'DELETED')
             return next(new ErrorResponse('403: User account deleted.', 403));
 
         next();
     } catch (err) {
-        console.log('token, err=>>>>>>>>>>>>>>>>>', err.message)
+        console.log('token, err=>>>>>>>>>>>>>>>>>', err.message);
         return next(new ErrorResponse('401: Unauthorized', 401));
     }
 });
