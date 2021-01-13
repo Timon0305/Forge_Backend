@@ -24,6 +24,7 @@ connectDB();
 const customPC = require('./routes/customer/categories');
 const filterList = require('./routes/customer/filters');
 const synch = require('./routes/customer/sync');
+const users = require('./routes/admin/user');
 const app = express();
 
 app.use(express.json({'limit': '50mb'}));
@@ -46,6 +47,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use('/api/customer/category', customPC);
 app.use('/api/customer/filter', filterList);
 app.use('/api/customer/sync', synch);
+app.use('/api2/admin/', users);
 
 
 app.get('/', async (req, res, next) => {
