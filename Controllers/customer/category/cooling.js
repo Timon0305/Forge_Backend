@@ -2,7 +2,9 @@ const CoolingSchema = require('../../../Models/Cpu-Cooler/Cooling');
 const CPUCoolerFilter = require('../../../Models/Cpu-Cooler/CoolingFilter');
 const WaterCooled = require('../../../Models/Cpu-Cooler/WaterCooled');
 const Fanless = require('../../../Models/Cpu-Cooler/FanLess');
-exports.getAllCPUCooler = async (req, res) => {
+const asyncHandler = require('../../../middleware/async');
+
+exports.getAllCPUCooler = asyncHandler(async (req, res) => {
     try {
         CoolingSchema.find()
             .then(cooler => {
@@ -13,7 +15,7 @@ exports.getAllCPUCooler = async (req, res) => {
     } catch (e) {
         console.log('CPU Cooler exception---', e.message);
     }
-} ;
+});
 
 exports.getCPUCoolerFilter = async (req, res) => {
     try {

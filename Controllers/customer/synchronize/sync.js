@@ -566,11 +566,13 @@ exports.softwareSync = async (req, res) => {
 
 
 exports.others = async (req, res) => {
-    const url = 'https://pcpartpicker.com/products/power-supply/';
-    const CpuSeries = require('../../../Models/Power-Supply/PowerColor');
-    let data = [];
-    const browser = await puppeteer.launch({header: false});
-    const page = await browser.newPage();
+
+
+    // const url = 'https://pcpartpicker.com/products/power-supply/';
+    // const CpuSeries = require('../../../Models/Power-Supply/PowerColor');
+    // let data = [];
+    // const browser = await puppeteer.launch({header: false});
+    // const page = await browser.newPage();
 
     for (let i = 1; i < 2; i++) {
         await page.goto(url, {waitUntil: 'networkidle0'});

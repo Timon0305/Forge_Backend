@@ -51,7 +51,6 @@ app.use('/api/customer/sync', synch);
 app.use('/api2/admin/', users);
 app.use('/api2/admin/products', products);
 
-
 app.get('/', async (req, res, next) => {
   res.status(200).send('Welcome to the ForgePC');
 });

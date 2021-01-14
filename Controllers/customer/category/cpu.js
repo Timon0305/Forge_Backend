@@ -2,23 +2,23 @@ const CpuSchema = require('../../../Models/CPU/Cpu');
 const CPUFilter = require('../../../Models/CPU/CpuFilter');
 const CPUSeries = require('../../../Models/CPU/CpuSeries');
 const CPUGraphics = require('../../../Models/CPU/CpuGraphics');
+const asyncHandler = require('../../../middleware/async');
+exports.getAllCpu = asyncHandler(async (req, res) => {
+    try {
+        CpuSchema.find()
+            .then(async cpu => {
+                await cpu.sort((a, b) => {
+                    return parseFloat(a.price.split('$')['1']) -  parseFloat(b.price.split('$')['1'])
+                });
+                await res.status(200).json({
+                    cpu
+                })
 
-exports.getAllCpu = async (req, res) => {
-   try {
-       CpuSchema.find()
-           .then(async cpu => {
-               await cpu.sort((a, b) => {
-                   return parseFloat(a.price.split('$')['1']) -  parseFloat(b.price.split('$')['1'])
-               });
-               await res.status(200).json({
-                  cpu
-               })
-
-           })
-   } catch (e) {
-       console.log('cpu exception---', e.message);
-   }
-} ;
+            })
+    } catch (e) {
+        console.log('cpu exception---', e.message);
+    }
+});
 
 exports.getCPUManufacturer = async (req, res) => {
     try {
